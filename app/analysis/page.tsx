@@ -140,7 +140,7 @@ export default function AnalysisPage() {
             <div className="flex-1 chat-gradient-bg" ref={scrollAreaRef}>
               <div className="px-6 py-8 space-y-6">
                 {messages.map((message: Message) => (
-                  <ChatMessage key={message.id} message={message} />
+                  <ChatMessage key={message.id} message={message} allMessages={messages} />
                 ))}
                 {isLoading && messages[messages.length - 1]?.role !== 'assistant' && (
                   <div className="flex gap-4 justify-start">
@@ -204,7 +204,13 @@ export default function AnalysisPage() {
   )
 }
 
-function ChatMessage({ message }: { message: Message }) {
+function ChatMessage({
+  message,
+  allMessages,
+}: {
+  message: Message
+  allMessages: Message[]
+}) {
   if (message.role === 'user') {
     return (
       <div className="flex gap-4 justify-end">
@@ -235,22 +241,34 @@ function ChatMessage({ message }: { message: Message }) {
             </div>
           )}
         </div>
-        {message.toolInvocations?.map((toolInvocation: any) => (
-          <div key={toolInvocation.toolCallId} className="flex gap-4 justify-start ml-14">
-            <div className="bg-white/80 text-card-foreground border border-white/20 rounded-2xl rounded-bl-lg px-5 py-4 shadow-macos-md backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <div className="flex space-x-1">
-                  <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                  <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                  <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce"></span>
+        {message.toolInvocations
+          ?.filter(
+            (toolInvocation) =>
+              !allMessages.some(
+                (m) =>
+                  (m as any).role === "tool" &&
+                  (m as any).tool_call_id === toolInvocation.toolCallId
+              )
+          )
+          .map((toolInvocation: any) => (
+            <div
+              key={toolInvocation.toolCallId}
+              className="flex gap-4 justify-start ml-14"
+            >
+              <div className="bg-white/80 text-card-foreground border border-white/20 rounded-2xl rounded-bl-lg px-5 py-4 shadow-macos-md backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="flex space-x-1">
+                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce"></span>
+                  </div>
+                  <span className="text-base text-muted-foreground">
+                    正在调用工具: <strong>{toolInvocation.toolName}</strong>
+                  </span>
                 </div>
-                <span className="text-base text-muted-foreground">
-                  正在调用工具: <strong>{toolInvocation.toolName}</strong>
-                </span>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     );
   }
@@ -262,7 +280,7 @@ function ChatMessage({ message }: { message: Message }) {
            <div className="flex items-center gap-3 mb-2">
              <Settings2 className="w-5 h-5 text-zinc-500" />
              <span className="text-base font-semibold text-zinc-600">
-               工具执行结果: {(message as any).toolInvocations?.[0]?.toolName}
+               工具执行结果: {(message as any).name}
              </span>
            </div>
            <pre className="whitespace-pre-wrap bg-zinc-200/50 p-3 rounded-md text-sm text-zinc-800 overflow-x-auto">
