@@ -84,9 +84,10 @@
 
 .chat-gradient-bg {
   background: linear-gradient(
-    135deg,
+    160deg,
     hsl(var(--background)) 0%,
-    hsl(var(--secondary) / 0.3) 50%,
+    hsl(var(--secondary) / 0.5) 40%,
+    hsl(var(--primary) / 0.1) 70%,
     hsl(var(--background)) 100%
   );
 }

@@ -79,37 +79,59 @@ export default function Dashboard() {
           sidebarCollapsed ? "ml-[72px]" : "ml-60",
         )}
       >
-        {/* Hero Banner - More Compact */}
-        <div className="hero-gradient-bg text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent"></div>
-          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16 lg:py-20">
-            <div className="text-center space-y-4">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-                你的专属
-                <span className="block text-white/95">CS分析师</span>
+        {/* Hero Banner - Redesigned */}
+        <div className="relative overflow-hidden bg-background">
+          <div className="absolute inset-0 hero-gradient-bg"></div>
+          {/* Aurora-style background */}
+          <div className="absolute inset-0 opacity-50">
+            <svg
+              viewBox="0 0 1024 1024"
+              className="absolute left-1/2 top-1/2 h-[64rem] w-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]"
+              aria-hidden="true"
+            >
+              <circle cx={512} cy={512} r={512} fill="url(#gradient-aurora)" fillOpacity="0.7" />
+              <defs>
+                <radialGradient id="gradient-aurora">
+                  <stop stopColor="hsl(var(--primary) / 0.8)" />
+                  <stop offset={1} stopColor="hsl(var(--accent) / 0.6)" />
+                </radialGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div
+            className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 py-24 md:py-32 lg:py-40"
+            style={{
+              maskImage: "linear-gradient(to bottom, white 80%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, white 80%, transparent 100%)",
+            }}
+          >
+            <div className="text-center space-y-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white text-shadow-lg">
+                你的专属CS分析师
               </h1>
-              <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed text-shadow">
                 基于AI驱动的深度数据分析，助您精进技艺，洞察战术，成就电竞梦想
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
                 <Button
                   size="lg"
-                  className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-2.5 text-base shadow-macos-md"
+                  className="bg-white/90 text-primary hover:bg-white font-bold px-8 py-3 text-lg shadow-macos-lg backdrop-blur-sm border border-white/20"
                   asChild
                 >
                   <Link href="/demos">
-                    <Upload className="w-4 h-4 mr-2" />
+                    <Upload className="w-5 h-5 mr-2.5" />
                     上传Demo开始分析
                   </Link>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-primary hover:bg-white/10 hover:text-primary font-semibold px-6 py-2.5 text-base bg-white/90"
+                  className="border-white/40 text-white hover:bg-white/10 hover:text-white font-semibold px-8 py-3 text-lg bg-white/5 backdrop-blur-sm shadow-macos-lg"
                   asChild
                 >
                   <Link href="/analysis">
-                    <MessageSquare className="w-4 h-4 mr-2" />
+                    <MessageSquare className="w-5 h-5 mr-2.5" />
                     与AI对话
                   </Link>
                 </Button>

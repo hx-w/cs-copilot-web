@@ -25,14 +25,24 @@ const navigation = [
 
 const bottomNavigation = [{ name: "设置", href: "/settings", icon: Settings }]
 
-export function Sidebar() {
+type SidebarProps = {
+  onCollapseChange?: (collapsed: boolean) => void
+}
+
+export function Sidebar({ onCollapseChange }: SidebarProps) {
   const pathname = usePathname()
   const [collapsed, setCollapsed] = useState(false)
 
+  const handleCollapse = () => {
+    const newCollapsedState = !collapsed
+    setCollapsed(newCollapsedState)
+    onCollapseChange?.(newCollapsedState)
+  }
+
   return (
-    <div
+    <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen flex flex-col bg-card border-r transition-all duration-300 ease-in-out shadow-macos-md",
+        "relative z-40 h-screen flex flex-col bg-card border-r transition-all duration-300 ease-in-out shadow-macos-md flex-shrink-0",
         collapsed ? "w-[72px]" : "w-60",
       )}
     >
@@ -55,7 +65,7 @@ export function Sidebar() {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={handleCollapse}
           className={cn(
             "h-7 w-7 absolute right-0 top-1/2 -translate-y-1/2 bg-card border rounded-full shadow-macos-sm hover:bg-muted",
             collapsed ? "translate-x-[calc(50%_-_1px)]" : "translate-x-1/2",
@@ -122,6 +132,6 @@ export function Sidebar() {
           )
         })}
       </div>
-    </div>
+    </aside>
   )
 }
