@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Refined Modern Color Palette */
+    --background: 220 25% 97%; /* Very light, cool gray */
+    --foreground: 220 20% 20%; /* Darker for better readability */
+
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 220 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    --primary: 205 65% 50%; /* A balanced, modern blue */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    --secondary: 205 60% 92%; /* Lighter blue for accents and hovers */
+    --secondary-foreground: 205 65% 30%; /* Darker blue for text on secondary */
+
+    --muted: 220 20% 91%; /* Lighter gray for muted elements */
+    --muted-foreground: 220 20% 40%; /* Darker for better readability */
+
+    --accent: 170 55% 48%; /* A complementary teal/mint for specific highlights */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 88%; /* Softer borders */
+    --input: 220 25% 95%; /* Slightly off-white input background */
+    --ring: 205 65% 55%; /* Ring color matches primary */
+
+    --radius: 0.65rem; /* Slightly smaller radius for a refined look */
+  }
+
+  .dark {
+    --background: 220 15% 12%;
+    --foreground: 220 15% 88%;
+    --card: 220 15% 18%;
+    --card-foreground: 220 15% 88%;
+    --popover: 220 15% 18%;
+    --popover-foreground: 220 15% 88%;
+    --primary: 205 60% 55%;
+    --primary-foreground: 220 15% 10%;
+    --secondary: 205 60% 25%;
+    --secondary-foreground: 205 60% 85%;
+    --muted: 220 15% 22%;
+    --muted-foreground: 220 15% 65%;
+    --accent: 170 50% 50%;
+    --accent-foreground: 220 15% 10%;
+    --border: 220 15% 28%;
+    --input: 220 15% 20%;
+    --ring: 205 60% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold text-foreground;
+  }
+}
+
+/* Custom utility classes */
+.hero-gradient-bg {
+  background: linear-gradient(135deg, #4a90e2 0%, #50c878 100%);
+}
+
+.chat-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--background)) 0%,
+    hsl(var(--secondary) / 0.3) 50%,
+    hsl(var(--background)) 100%
+  );
+}
+
+.subtle-gradient-text {
+  @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+}
+
+.primary-gradient-bg {
+  background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+}
+
+/* MacOS-style Shadows */
+.shadow-macos-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.shadow-macos-md {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.shadow-macos-lg {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.glassmorphic-subtle {
+  background: hsla(var(--card) / 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsla(var(--border) / 0.25);
+}
