@@ -241,34 +241,7 @@ function ChatMessage({
             </div>
           )}
         </div>
-        {message.toolInvocations
-          ?.filter(
-            (toolInvocation) =>
-              !allMessages.some(
-                (m) =>
-                  (m as any).role === "tool" &&
-                  (m as any).tool_call_id === toolInvocation.toolCallId
-              )
-          )
-          .map((toolInvocation: any) => (
-            <div
-              key={toolInvocation.toolCallId}
-              className="flex gap-4 justify-start ml-14"
-            >
-              <div className="bg-white/80 text-card-foreground border border-white/20 rounded-2xl rounded-bl-lg px-5 py-4 shadow-macos-md backdrop-blur-sm">
-                <div className="flex items-center gap-3">
-                  <div className="flex space-x-1">
-                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                    <span className="h-2 w-2 bg-amber-500/70 rounded-full animate-bounce"></span>
-                  </div>
-                  <span className="text-base text-muted-foreground">
-                    正在调用工具: <strong>{toolInvocation.toolName}</strong>
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Tool invocation display has been removed based on user feedback. */}
       </div>
     );
   }
