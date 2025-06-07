@@ -1,4 +1,5 @@
-import { createDeepSeek } from '@ai-sdk/deepseek';
+// import { createDeepSeek } from '@ai-sdk/deepseek';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText, tool } from 'ai';
 import fs from 'fs';
 import path from 'path';
@@ -13,12 +14,17 @@ export async function POST(req: Request) {
   const mdPath = path.join(process.cwd(), 'docs', 'DB_QUERIES.md');
   const mdContent = fs.readFileSync(mdPath, 'utf-8');
 
-  const deepseek = createDeepSeek({
-    apiKey: process.env.DEEPSEEK_API_KEY,
-  });
+  // const deepseek = createDeepSeek({
+  //   apiKey: process.env.DEEPSEEK_API_KEY,
+  // });
+
+  const gemini = createGoogleGenerativeAI({
+    apiKey: process.env.GEMINI_API_KEY,
+  })
 
   const result = streamText({
-    model: deepseek('deepseek-reasoner'),
+    // model: deepseek('deepseek-reasoner'),
+    model: gemini('gemini-2.5-flash-preview-04-17'),
     system: `你是一个专业的CS2游戏数据分析机器人。` +
       `你的核心任务是根据用户的提问，通过调用工具来查询数据库并回答问题。` +
       `规则：` +
